@@ -4,80 +4,80 @@ A training mini project
 # 08/Sep
 - Tables
   - Patient
-    -PID
-    -FirstName
-    -MidName
-    -LastName
-    -Mobile
-    -Email
-    -Address
-    -Gender
-    -DOB
+    - PID
+    - FirstName
+    - MidName
+    - LastName
+    - Mobile
+    - Email
+    - Address
+    - Gender
+    - DOB
 
 
   - Department
-    -DepID
-    -DepName
+    - DepID
+    - DepName
 
 
   - Doctor
-    -ID
-    -Name
-    -Type
-    -Mobile
-    -Email
-    -Gender
-    -Fees
-    -Salary
+    - ID
+    - Name
+    - Type
+    - Mobile
+    - Email
+    - Gender
+    - Fees
+    - Salary
 
   - Nurse
-    -ID
-    -Name
-    -Mobile
-    -Email
-    -Gender
-    -Salary
+    - ID
+    - Name
+    - Mobile
+    - Email
+    - Gender
+    - Salary
 
   - OPDBilling
-    -ID
-    -PID
-    -DocID
-    -Medicine
-    -Test
+    - ID
+    - PID
+    - DocID
+    - Medicine
+    - Test
 
   - IPDBilling
 
   - Test
 
   - Ward
-    -ID
-    -DepID
-    -RoomSpecialCapacity
-    -RoomSharedCapacity
-    -RoomGeneralCapacity
+    - ID
+    - DepID
+    - RoomSpecialCapacity
+    - RoomSharedCapacity
+    - RoomGeneralCapacity
   
   - Room(type,rate,capacity)
-    -ID
-    -WardID
-    -Type
-    -Rate
-    -CurrentBedCapacity
-    -MaxBedCapacity
+    - ID
+    - WardID
+    - Type
+    - Rate
+    - CurrentBedCapacity
+    - MaxBedCapacity
 
   - OPDPatient
-    -ID
-    -PID
-    -DocID
-    -VisitDate
-    -OPDBillingID
+    - ID
+    - PID
+    - DocID
+    - VisitDate
+    - OPDBillingID
 
   - IPDPatient
   
   - Medicines
-    -ID
-    -Name
-    -Price
+    - ID
+    - Name
+    - Price
 
   - Canteen
-    -MealID
-    -Price
+    - MealID
+    - Price
