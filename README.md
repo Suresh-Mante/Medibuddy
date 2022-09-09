@@ -42,12 +42,33 @@ A training mini project
     - ID
     - PID
     - DocID
-    - Medicine
-    - Test
+    
+
+  - OPDTest
+    - OPDBillingID
+    - TestID
+
+  - OPDMedicine
+    - OPDBillingID
+    - MedicineID
 
   - IPDBilling
+    - ID
+    - PID
+    - DocID
+
+  - IPDTest
+    - IPDBillingID
+    - TestID
+
+  - IPDMedicine
+    - IPDBillingID
+    - MedicineID
 
   - Test
+    - ID
+    - Name
+    - Price
 
   - Ward
     - ID
@@ -72,7 +93,13 @@ A training mini project
     - OPDBillingID
 
   - IPDPatient
-  
+    - ID
+    - PID
+    - DocID
+    - EntryDate
+    - ExitDate
+    - IPDBillingID
+
   - Medicines
     - ID
     - Name
