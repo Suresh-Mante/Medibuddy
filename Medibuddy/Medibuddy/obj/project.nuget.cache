@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "3iXZxrLJQ2eBrDTda9yTO5VsXIEsgaKdDHaVA6eOpS2eZNQP5OHbQyjighvNJ6hTlv9JNOpR0ZU1QKtNG2B6ww==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Soudip.Das\\Documents\\GitHub\\Medibuddy\\Medibuddy\\Medibuddy\\Medibuddy.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Soudip.Das\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Soudip.Das\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Soudip.Das\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Soudip.Das\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Soudip.Das\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Soudip.Das\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
