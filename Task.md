@@ -1,2 +1,14 @@
 # 09/09/2022
-
+(Get, Get(id), Delete(id), Update(id), Add(Object))
+- Soudip
+    - Create Patient Api
+    - Create Department Api
+- Ajay
+    - Create Doctor Api
+    - Create Nurse Api
+- Ravi
+    - Create Test Api
+    - Create Medicine Api
+- Suresh
+    - Create Ward Api
+    - Create Room Api
