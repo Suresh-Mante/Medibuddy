@@ -1,6 +1,13 @@
+using Medibuddy.DataAccess;
+using Medibuddy.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//For Ward Api
+builder.Services.AddScoped<IWardRepository, WardRepository>();
+builder.Services.AddScoped<IWardDataAccess, WardDataAccess>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
