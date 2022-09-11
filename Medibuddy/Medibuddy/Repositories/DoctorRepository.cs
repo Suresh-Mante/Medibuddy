@@ -1,5 +1,6 @@
 ﻿using Medibuddy.DataAccess;
 using Medibuddy.Models;
+using Medibuddy.Utils;
 
 namespace Medibuddy.Repositories
 {
@@ -11,29 +12,141 @@ namespace Medibuddy.Repositories
         {
             _doctorDataAccess = doctorDataAccess;
         }
-        public Doctor Create(Doctor doctor)
+
+        public async Task<Response<Doctor>> Create(Doctor doctor)
         {
-            throw new NotImplementedException();
+            Response<Doctor> response = new Response<Doctor>();
+
+            try
+            {
+                Doctor createdDoctor = await _doctorDataAccess.Create(doctor);
+                response.StatusCode = 201;
+                response.StatusMessage = HttpMessages.Created;
+                response.Record = createdDoctor;
+            }
+            catch (Exception ex)
+            {
+                //Write logic to log this exceptions somewhere//
+
+                response.StatusCode = 500;
+                response.StatusMessage = HttpMessages.InternalServerError;
+            }
+
+            return response;
         }
 
-        public Doctor Delete(int ID)
+        public async Task<Response<Doctor>> Delete(int ID)
         {
-            throw new NotImplementedException();
+            Response<Doctor> response = new Response<Doctor>();
+
+            try
+            {
+                Doctor? existingDoctor = await _doctorDataAccess.Get(ID);
+                if (existingDoctor != null)
+                {
+                    await _doctorDataAccess.Delete(ID);
+                    response.StatusCode = 200;
+                    response.StatusMessage = HttpMessages.Deleted;
+                    response.Record = existingDoctor;
+                }
+                else
+                {
+                    response.StatusCode = 404;
+                    response.StatusMessage = HttpMessages.NotFound;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Write logic to log this exceptions somewhere//
+
+                response.StatusCode = 500;
+                response.StatusMessage = HttpMessages.InternalServerError;
+            }
+
+            return response;
         }
 
-        public Doctor Get(int ID)
+        public async Task<Response<Doctor>> Get(int ID)
         {
-            throw new NotImplementedException();
+            Response<Doctor> response = new Response<Doctor>();
+
+            try
+            {
+                Doctor? doctor = await _doctorDataAccess.Get(ID);
+                if (doctor != null)
+                {
+                    response.StatusCode = 200;
+                    response.StatusMessage = HttpMessages.Ok;
+                    response.Record = doctor;
+                }
+                else
+                {
+                    response.StatusCode = 404;
+                    response.StatusMessage = HttpMessages.NotFound;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Write logic to log this exceptions somewhere//
+
+                response.StatusCode = 500;
+                response.StatusMessage = HttpMessages.InternalServerError;
+            }
+
+            return response;
         }
 
-        public IEnumerable<Doctor> Get()
+        public async Task<Response<Doctor>> Get()
         {
-            throw new NotImplementedException();
+            Response<Doctor> response = new Response<Doctor>();
+
+            try
+            {
+                List<Doctor> doctors = (await _doctorDataAccess.Get()).ToList();
+                response.StatusCode = 200;
+                response.StatusMessage = HttpMessages.Ok;
+                response.Records = doctors;
+            }
+            catch (Exception ex)
+            {
+                //Write logic to log this exceptions somewhere//
+
+                response.StatusCode = 500;
+                response.StatusMessage = HttpMessages.InternalServerError;
+            }
+
+            return response;
         }
 
-        public Doctor Update(int ID, Doctor doctor)
+        public async Task<Response<Doctor>> Update(int ID, Doctor doctor)
         {
-            throw new NotImplementedException();
+            Response<Doctor> response = new Response<Doctor>();
+
+            try
+            {
+                Doctor? existingDoctor = await _doctorDataAccess.Get(ID);
+                if (existingDoctor != null)
+                {
+                    Doctor? updatedDoctor = await _doctorDataAccess.Update(ID, doctor);
+                    response.StatusCode = 204;
+                    response.StatusMessage = HttpMessages.Updated;
+                    response.Record = updatedDoctor;
+                }
+                else
+                {
+                    response.StatusCode = 404;
+                    response.StatusMessage = HttpMessages.NotFound;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Write logic to log this exceptions somewhere//
+
+                response.StatusCode = 500;
+                response.StatusMessage = HttpMessages.InternalServerError;
+            }
+
+            return response;
         }
     }
 }
