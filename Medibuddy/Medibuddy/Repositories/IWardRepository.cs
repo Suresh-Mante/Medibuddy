@@ -4,10 +4,10 @@ namespace Medibuddy.Repositories
 {
     public interface IWardRepository
     {
-        public Ward Create(Ward ward);
-        public Ward Get(int id);
-        public IEnumerable<Ward> Get();
-        public Ward Update(int id, Ward ward);
-        public Ward Delete(int id);
+        public Task<Response<Ward>> Create(Ward ward);
+        public Task<Response<Ward>> Get(int id);
+        public Task<Response<Ward>> Get();
+        public Task<Response<Ward>> Update(int id, Ward ward);
+        public Task<Response<Ward>> Delete(int id);
     }
 }
