@@ -2,12 +2,13 @@
 
 namespace Medibuddy.DataAccess
 {
+
     public interface IDoctorDataAccess
     {
-        public Doctor Create(Doctor doctor);
-        public Doctor Get(int ID);
-        public IEnumerable<Doctor> Get();
-        public Doctor Update(int ID, Doctor doctor);
-        public Doctor Delete(int ID);
+        public Task<Doctor> Create(Doctor doctor);
+        public Task<Doctor?> Get(int ID);
+        public Task<IEnumerable<Doctor>> Get();
+        public Task<Doctor?> Update(int ID, Doctor doctor);
+        public Task<bool> Delete(int ID);
     }
 }
