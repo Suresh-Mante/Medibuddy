@@ -14,37 +14,107 @@ namespace Medibuddy.DataAccess
         {
             _configuration = configuration;
             connection = new SqlConnection(_configuration.GetConnectionString("DbConnectionString"));
+            connection.Open();
             command = connection.CreateCommand();
         }
 
-        public Ward Create(Ward ward)
+        public async Task<Ward> Create(Ward ward)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Insert into {nameof(Ward)}({nameof(Ward.DepId)}, {nameof(Ward.RoomSpecialCapacity)}, " +
+                                  $"{nameof(Ward.RoomSharedCapacity)}, {nameof(Ward.RoomGeneralCapacity)})" +
+                                  $" Values({ward.DepId}, {ward.RoomSpecialCapacity}, {ward.RoomSharedCapacity}, {ward.RoomGeneralCapacity})";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+            connection.Dispose();
+
+            return ward;
         }
 
-        public Ward Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Delete from {nameof(Ward)} where {nameof(Ward.Id)} = {id}";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+            connection.Dispose();
+
+            return true;
         }
 
-        public Ward Get(int id)
+        public async Task<Ward?> Get(int id)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Ward? ward = null;
+
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Select {nameof(Ward.Id)}, {nameof(Ward.DepId)}, {nameof(Ward.RoomSpecialCapacity)}, " +
+                                  $"{nameof(Ward.RoomSharedCapacity)}, {nameof(Ward.RoomGeneralCapacity)}" +
+                                  $" from {nameof(Ward)} where {nameof(Ward.Id)} = {id}";
+
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (reader.Read())
+            {
+                ward = new Ward
+                {
+                    Id = Convert.ToInt32(reader.GetValue(nameof(Ward.Id))),
+                    DepId = Convert.ToInt32(reader.GetValue(nameof(Ward.DepId))),
+                    RoomGeneralCapacity = Convert.ToInt32(reader.GetValue(nameof(Ward.RoomGeneralCapacity))),
+                    RoomSharedCapacity = Convert.ToInt32(reader.GetValue(nameof(Ward.RoomSharedCapacity))),
+                    RoomSpecialCapacity = Convert.ToInt32(reader.GetValue(nameof(Ward.RoomSpecialCapacity)))
+                };
+            }
+
+            connection.Close();
+            connection.Dispose();
+
+            return ward;
         }
 
-        public IEnumerable<Ward> Get()
+        public async Task<IEnumerable<Ward>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            List<Ward> wards = new List<Ward>();
+
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Select {nameof(Ward.Id)}, {nameof(Ward.DepId)}, {nameof(Ward.RoomSpecialCapacity)}, " +
+                                  $"{nameof(Ward.RoomSharedCapacity)}, {nameof(Ward.RoomGeneralCapacity)}" +
+                                  $" from {nameof(Ward)}";
+
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (reader.Read())
+            {
+                wards.Add(new Ward
+                {
+                    Id = Convert.ToInt32(reader.GetValue(nameof(Ward.Id))),
+                    DepId = Convert.ToInt32(reader.GetValue(nameof(Ward.DepId))),
+                    RoomGeneralCapacity = Convert.ToInt32(reader.GetValue(nameof(Ward.RoomGeneralCapacity))),
+                    RoomSharedCapacity = Convert.ToInt32(reader.GetValue(nameof(Ward.RoomSharedCapacity))),
+                    RoomSpecialCapacity = Convert.ToInt32(reader.GetValue(nameof(Ward.RoomSpecialCapacity)))
+                });
+            }
+
+            connection.Close();
+            connection.Dispose();
+
+            return wards;
         }
 
-        public Ward Update(int id, Ward ward)
+        public async Task<Ward?> Update(int id, Ward ward)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Update {nameof(Ward)} " +
+                $"Set {nameof(Ward.DepId)} = {ward.DepId}, " +
+                $"{nameof(Ward.RoomSharedCapacity)} = {ward.RoomSharedCapacity}, " +
+                $"{nameof(Ward.RoomSpecialCapacity)} = {ward.RoomSpecialCapacity}, " +
+                $"{nameof(Ward.RoomGeneralCapacity)} = {ward.RoomGeneralCapacity}, " +
+                $"Where {nameof(Ward.Id)} = {id}";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+            connection.Dispose();
+
+            return ward;
         }
     }
 }
