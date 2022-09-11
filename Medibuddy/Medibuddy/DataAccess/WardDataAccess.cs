@@ -14,12 +14,12 @@ namespace Medibuddy.DataAccess
         {
             _configuration = configuration;
             connection = new SqlConnection(_configuration.GetConnectionString("DbConnectionString"));
-            connection.Open();
-            command = connection.CreateCommand();
         }
 
         public async Task<Ward> Create(Ward ward)
         {
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Insert into {nameof(Ward)}({nameof(Ward.DepId)}, {nameof(Ward.RoomSpecialCapacity)}, " +
                                   $"{nameof(Ward.RoomSharedCapacity)}, {nameof(Ward.RoomGeneralCapacity)})" +
@@ -27,19 +27,21 @@ namespace Medibuddy.DataAccess
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
+            
 
             return ward;
         }
 
         public async Task<bool> Delete(int id)
         {
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Delete from {nameof(Ward)} where {nameof(Ward.Id)} = {id}";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
+            
 
             return true;
         }
@@ -48,6 +50,8 @@ namespace Medibuddy.DataAccess
         {
             Ward? ward = null;
 
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(Ward.Id)}, {nameof(Ward.DepId)}, {nameof(Ward.RoomSpecialCapacity)}, " +
                                   $"{nameof(Ward.RoomSharedCapacity)}, {nameof(Ward.RoomGeneralCapacity)}" +
@@ -65,9 +69,9 @@ namespace Medibuddy.DataAccess
                     RoomSpecialCapacity = Convert.ToInt32(reader.GetValue(nameof(Ward.RoomSpecialCapacity)))
                 };
             }
-
+            reader.Close();
+            reader.Dispose();
             connection.Close();
-            connection.Dispose();
 
             return ward;
         }
@@ -76,6 +80,8 @@ namespace Medibuddy.DataAccess
         {
             List<Ward> wards = new List<Ward>();
 
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(Ward.Id)}, {nameof(Ward.DepId)}, {nameof(Ward.RoomSpecialCapacity)}, " +
                                   $"{nameof(Ward.RoomSharedCapacity)}, {nameof(Ward.RoomGeneralCapacity)}" +
@@ -94,25 +100,29 @@ namespace Medibuddy.DataAccess
                 });
             }
 
+            reader.Close();
+            reader.Dispose();
             connection.Close();
-            connection.Dispose();
+            
 
             return wards;
         }
 
         public async Task<Ward?> Update(int id, Ward ward)
         {
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Update {nameof(Ward)} " +
                 $"Set {nameof(Ward.DepId)} = {ward.DepId}, " +
                 $"{nameof(Ward.RoomSharedCapacity)} = {ward.RoomSharedCapacity}, " +
                 $"{nameof(Ward.RoomSpecialCapacity)} = {ward.RoomSpecialCapacity}, " +
-                $"{nameof(Ward.RoomGeneralCapacity)} = {ward.RoomGeneralCapacity}, " +
+                $"{nameof(Ward.RoomGeneralCapacity)} = {ward.RoomGeneralCapacity} " +
                 $"Where {nameof(Ward.Id)} = {id}";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
+            
 
             return ward;
         }
