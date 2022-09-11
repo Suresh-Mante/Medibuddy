@@ -16,11 +16,11 @@ namespace Medibuddy.Controllers
         }
 
         /// <summary>
-        /// Creates a new patient
+        /// Creates a new test
         /// </summary>
-        /// <param name="patient"></param>
+        /// <param name="test"></param>
         /// <returns>
-        /// Created patient
+        /// Created test
         /// </returns>
         [HttpPost]
         public Task<IActionResult> Create(Test test)
@@ -32,9 +32,9 @@ namespace Medibuddy.Controllers
         /// <summary>
         /// Get patient with given PID
         /// </summary>
-        /// <param name="PID"></param>
+        /// <param name="Id"></param>
         /// <returns>
-        /// Returns a patient with given PID if exists
+        /// Returns a test with give Id if exists
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet("{Id}")]
@@ -45,10 +45,10 @@ namespace Medibuddy.Controllers
         }
 
         /// <summary>
-        /// Get all patients
+        /// Get all Tests
         /// </summary>
         /// <returns>
-        /// Returns all patients
+        /// Returns all tests
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
@@ -59,10 +59,10 @@ namespace Medibuddy.Controllers
         }
 
         /// <summary>
-        /// Updates patient with given PID and data
+        /// Updates test with given Id and data
         /// </summary>
-        /// <param name="PID"></param>
-        /// <param name="patient"></param>
+        /// <param name="Id"></param>
+        /// <param name="test"></param>
         /// <returns>
         /// Updated patient if exists
         /// </returns>
@@ -74,12 +74,12 @@ namespace Medibuddy.Controllers
         }
 
         /// <summary>
-        /// Deletes patient with given PID if exists
+        /// Deletes Test with given Id if exists
         /// </summary>
-        /// <param name="PID"></param>
-        /// <param name="patient"></param>
+        /// <param name="Id"></param>
+        /// <param name="test"></param>
         /// <returns>
-        /// Deleted patient if exists
+        /// Deleted test if exists
         /// </returns>
         [HttpDelete]
         public Task<IActionResult> Delete(int Id)
