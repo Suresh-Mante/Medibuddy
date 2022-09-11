@@ -4,25 +4,25 @@ using Medibuddy.Utils;
 
 namespace Medibuddy.Repositories
 {
-    public class WardRepository : IWardRepository
+    public class RoomRepository : IRoomRepository
     {
-        private readonly IWardDataAccess _wardDataAccess;
+        private readonly IRoomDataAccess _roomDataAccess;
 
-        public WardRepository(IWardDataAccess wardDataAccess)
+        public RoomRepository(IRoomDataAccess roomDataAccess)
         {
-            _wardDataAccess = wardDataAccess;
+            _roomDataAccess = roomDataAccess;
         }
 
-        public async Task<Response<Ward>> Create(Ward ward)
+        public async Task<Response<Room>> Create(Room room)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Room> response = new Response<Room>();
 
             try
             {
-                Ward createdWard = await _wardDataAccess.Create(ward);
+                Room createdRoom = await _roomDataAccess.Create(room);
                 response.StatusCode = 201;
                 response.StatusMessage = HttpMessages.Created;
-                response.Record = createdWard;
+                response.Record = createdRoom;
             }
             catch (Exception ex)
             {
@@ -35,19 +35,19 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Delete(int id)
+        public async Task<Response<Room>> Delete(int id)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Room> response = new Response<Room>();
 
             try
             {
-                Ward? existingWard = await _wardDataAccess.Get(id);
-                if (existingWard != null)
+                Room? existingRoom = await _roomDataAccess.Get(id);
+                if (existingRoom != null)
                 {
-                    await _wardDataAccess.Delete(id);
+                    await _roomDataAccess.Delete(id);
                     response.StatusCode = 200;
                     response.StatusMessage = HttpMessages.Deleted;
-                    response.Record = existingWard;
+                    response.Record = existingRoom;
                 }
                 else
                 {
@@ -66,18 +66,18 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Get(int id)
+        public async Task<Response<Room>> Get(int id)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Room> response = new Response<Room>();
 
             try
             {
-                Ward? ward = await _wardDataAccess.Get(id);
-                if(ward != null)
+                Room? room = await _roomDataAccess.Get(id);
+                if(room != null)
                 {
                     response.StatusCode = 200;
                     response.StatusMessage = HttpMessages.Ok;
-                    response.Record = ward;
+                    response.Record = room;
                 }
                 else
                 {
@@ -96,16 +96,16 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Get()
+        public async Task<Response<Room>> Get()
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Room> response = new Response<Room>();
 
             try
             {
-                List<Ward> wards = (await _wardDataAccess.Get()).ToList();
+                List<Room> rooms = (await _roomDataAccess.Get()).ToList();
                 response.StatusCode = 200;
                 response.StatusMessage = HttpMessages.Ok;
-                response.Records = wards;
+                response.Records = rooms;
             }
             catch (Exception ex)
             {
@@ -118,19 +118,19 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Update(int id, Ward ward)
+        public async Task<Response<Room>> Update(int id, Room room)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Room> response = new Response<Room>();
 
             try
             {
-                Ward? existingWard = await _wardDataAccess.Get(id);
-                if(existingWard != null)
+                Room? existingRoom = await _roomDataAccess.Get(id);
+                if(existingRoom != null)
                 {
-                    Ward? updatedWard = await _wardDataAccess.Update(id, ward);
+                    Room? updatedRoom = await _roomDataAccess.Update(id, room);
                     response.StatusCode = 204;
                     response.StatusMessage = HttpMessages.Updated;
-                    response.Record = updatedWard;
+                    response.Record = updatedRoom;
                 }
                 else
                 {
