@@ -7,6 +7,6 @@
         public string Mobile { get; set; } = string.Empty ;
         string Email { get; set; } = string.Empty ;
         public char Gender { get; set; }
-        public double Salary { get; set; }
+        public decimal Salary { get; set; }
     }
 }

@@ -8,7 +8,7 @@
         public string Mobile { get; set; } = String.Empty;
         public string Email { get; set; } = String.Empty;
         public char Gender { get; set; }
-        public double Fees { get; set; }
-        public double Salary { get; set; }
+        public decimal Fees { get; set; }
+        public decimal Salary { get; set; }
     }
 }
