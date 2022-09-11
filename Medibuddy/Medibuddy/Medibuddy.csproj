@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Utils\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 
 </Project>
