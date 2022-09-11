@@ -11,6 +11,6 @@
         public string Email { get; set; }
         public string Address { get; set; }
         public char Gender { get; set; }
-        public DateOnly Date { get; set; }
+        public DateOnly DOB { get; set; }
     }
 }
