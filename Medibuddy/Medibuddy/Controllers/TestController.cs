@@ -30,7 +30,7 @@ namespace Medibuddy.Controllers
         }
 
         /// <summary>
-        /// Get patient with given PID
+        /// Get test with given Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>
@@ -64,7 +64,7 @@ namespace Medibuddy.Controllers
         /// <param name="Id"></param>
         /// <param name="test"></param>
         /// <returns>
-        /// Updated patient if exists
+        /// Updated test if exists
         /// </returns>
         [HttpPut]
         public Task<IActionResult> Update(int Id, Test test)
