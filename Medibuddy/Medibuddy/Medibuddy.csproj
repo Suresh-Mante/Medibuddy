@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CustomValidationAttributes\" />
     <Folder Include="Utils\" />
     <Folder Include="Utils\" />
   </ItemGroup>

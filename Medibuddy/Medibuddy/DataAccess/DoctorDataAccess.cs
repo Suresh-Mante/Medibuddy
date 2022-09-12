@@ -23,9 +23,9 @@ namespace Medibuddy.DataAccess
             connection.Open();
             command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = $"Insert into {nameof(Doctor)}({nameof(Doctor.Name)}, {nameof(Doctor.Type)}, {nameof(Doctor.Mobile)}, {nameof(Doctor.Email)}"+
-                                      $"{nameof(Doctor.Gender)}, {nameof(Doctor.Fees)},{nameof(Doctor.Salary)})" +
-                                      $" Values({doctor.Name}, {doctor.Type}, {doctor.Mobile}, {doctor.Email},{doctor.Gender},{doctor.Fees},{doctor.Salary})";
+            command.CommandText = $"Insert into {nameof(Doctor)}({nameof(Doctor.Name)},{nameof(Doctor.Type)}, {nameof(Doctor.Mobile)}, {nameof(Doctor.Email)}"+
+                                      $",{nameof(Doctor.Gender)},{nameof(Doctor.Fees)},{nameof(Doctor.Salary)})" +
+                                      $" Values('{doctor.Name}', '{doctor.Type}', '{doctor.Mobile}', '{doctor.Email}','{doctor.Gender}',{doctor.Fees},{doctor.Salary})";
             await command.ExecuteNonQueryAsync();
             connection.Close();
             return doctor;
@@ -51,7 +51,7 @@ namespace Medibuddy.DataAccess
             command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(Doctor.ID)}, {nameof(Doctor.Name)}, {nameof(Doctor.Type)} , {nameof(Doctor.Mobile)}" +
-                                  $"{nameof(Doctor.Email)}, {nameof(Doctor.Gender)}, {nameof(Doctor.Fees)}, {nameof(Doctor.Salary)}" +
+                                  $",{nameof(Doctor.Email)}, {nameof(Doctor.Gender)}, {nameof(Doctor.Fees)}, {nameof(Doctor.Salary)}" +
                                   $" from {nameof(Doctor)} where {nameof(Doctor.ID)} = {ID}";
 
             SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -82,7 +82,7 @@ namespace Medibuddy.DataAccess
             connection.Open();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(Doctor.ID)}, {nameof(Doctor.Name)}, {nameof(Doctor.Type)} , {nameof(Doctor.Mobile)}" +
-                                  $"{nameof(Doctor.Email)}, {nameof(Doctor.Gender)}, {nameof(Doctor.Fees)}, {nameof(Doctor.Salary)}" +
+                                  $",{nameof(Doctor.Email)}, {nameof(Doctor.Gender)}, {nameof(Doctor.Fees)}, {nameof(Doctor.Salary)}" +
                                   $" from {nameof(Doctor)}";
 
             SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -112,12 +112,12 @@ namespace Medibuddy.DataAccess
             connection.Open();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Update {nameof(Doctor)} " +
-                $"Set {nameof(Doctor.ID)} = {doctor.ID}, " +
-                $"{nameof(Doctor.Name)} = '{doctor.Name}', " +
-                $"{nameof(Doctor.Type)} = {doctor.Type}, " +
-                $"{nameof(Doctor.Mobile)} = {doctor.Mobile}, " +
-                $"{nameof(Doctor.Email)} = {doctor.Email} " +
-                $"{nameof(Doctor.Fees)}= {doctor.Fees}"+
+                $"Set {nameof(Doctor.Name)} = '{doctor.Name}', " +
+                $"{nameof(Doctor.Type)} = '{doctor.Type}', " +
+                $"{nameof(Doctor.Mobile)} = '{doctor.Mobile}', " +
+                $"{nameof(Doctor.Email)} = '{doctor.Email}'," +
+                $"{nameof(Doctor.Gender)} ='{doctor.Gender}'," +
+                $"{nameof(Doctor.Fees)}= {doctor.Fees},"+
                 $"{nameof(Doctor.Salary)}={doctor.Salary}"+
                 $"Where {nameof(Doctor.ID)} = {ID}";
 
