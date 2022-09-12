@@ -23,10 +23,20 @@ namespace Medibuddy.Controllers
         /// Created patient
         /// </returns>
         [HttpPost]
-        public Task<IActionResult> Create(Patient patient)
+        public async Task<Response<Patient>> Create(PatientDTO patient)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Patient newPatient = new Patient()
+            {
+                FirstName = patient.FirstName,
+                MidName = patient.MidName,
+                LastName = patient.LastName,
+                Mobile = patient.Mobile,
+                Email = patient.Email,
+                Address = patient.Address,
+                Gender = patient.Gender,
+                DOB = patient.DOB
+            };
+            return await _patientRepository.Create(newPatient);
         }
 
         /// <summary>
@@ -38,10 +48,9 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet("{PID}")]
-        public Task<IActionResult> Get(int PID)
+        public async Task<Response<Patient>> Get(int PID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _patientRepository.Get(PID);
         }
 
         /// <summary>
@@ -52,10 +61,9 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        public Task<IActionResult> Get()
+        public async Task<Response<Patient>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _patientRepository.Get();
         }
 
         /// <summary>
@@ -67,10 +75,19 @@ namespace Medibuddy.Controllers
         /// Updated patient if exists
         /// </returns>
         [HttpPut]
-        public Task<IActionResult> Update(int PID, Patient patient)
+        public async Task<Response<Patient>> Update(int PID, PatientDTO patient)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _patientRepository.Update(PID, new Patient()
+            {
+                FirstName = patient.FirstName,
+                MidName = patient.MidName,
+                LastName = patient.LastName,    
+                Mobile = patient.Mobile,
+                Email = patient.Email,
+                Address = patient.Address,
+                Gender = patient.Gender,
+                DOB = patient.DOB
+            });
         }
 
         /// <summary>
@@ -82,10 +99,9 @@ namespace Medibuddy.Controllers
         /// Deleted patient if exists
         /// </returns>
         [HttpDelete]
-        public Task<IActionResult> Delete(int PID)
+        public async Task<Response<Patient>> Delete(int PID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _patientRepository.Delete(PID);
         }
     }
 }

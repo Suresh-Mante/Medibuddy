@@ -4,10 +4,10 @@ namespace Medibuddy.Repositories
 {
     public interface IPatientRepository
     {
-        public Patient Create(Patient patient);
-        public Patient Get(int PID);
-        public IEnumerable<Patient> Get();
-        public Patient Update(int PID, Patient patient);
-        public Patient Delete(int PID);
+        public Task<Response<Patient>> Create(Patient patient);
+        public Task<Response<Patient>> Get(int PID);
+        public Task<Response<Patient>> Get();
+        public Task<Response<Patient>> Update(int PID, Patient patient);
+        public Task<Response<Patient>> Delete(int PID);
     }
 }
