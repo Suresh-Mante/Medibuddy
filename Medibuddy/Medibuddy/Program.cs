@@ -9,11 +9,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IWardRepository, WardRepository>();
 builder.Services.AddScoped<IWardDataAccess, WardDataAccess>();
 
+//For Patient Api
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientDataAccess, PatientDataAccess>();
 
+For Department Api
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDepartmentDataAccess, DepartmentDataAccess>();
+
+//For Room Api
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomDataAccess, RoomDataAccess>();
+
+//For Doctor Api
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IDoctorDataAccess, DoctorDataAccess>();
+
+//For Nurse Api
+builder.Services.AddScoped<INurseRepository, NurseRepository>();
+builder.Services.AddScoped<INurseDataAccess, NurseDataAccess>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
