@@ -23,7 +23,7 @@ namespace Medibuddy.Controllers
         /// Created patient
         /// </returns>
         [HttpPost]
-        public async Task<Response<Patient>> Create(Patient patient)
+        public async Task<Response<Patient>> Create(PatientDTO patient)
         {
             Patient newPatient = new Patient()
             {
@@ -75,7 +75,7 @@ namespace Medibuddy.Controllers
         /// Updated patient if exists
         /// </returns>
         [HttpPut]
-        public async Task<Response<Patient>> Update(int PID, Patient patient)
+        public async Task<Response<Patient>> Update(int PID, PatientDTO patient)
         {
             return await _patientRepository.Update(PID, new Patient()
             {

@@ -23,7 +23,7 @@ namespace Medibuddy.Controllers
         /// Created department
         /// </returns>
         [HttpPost]
-        public async Task<Response<Department>> Create(Department department)
+        public async Task<Response<Department>> Create(DepartmentDTO department)
         {
             Department newDepartment = new Department()
             {
@@ -68,7 +68,7 @@ namespace Medibuddy.Controllers
         /// Updated department if exists
         /// </returns>
         [HttpPut]
-        public async Task<Response<Department>> Update(int DepID, Department department)
+        public async Task<Response<Department>> Update(int DepID, DepartmentDTO department)
         {
             return await _departmentRepository.Update(DepID, new Department()
             {

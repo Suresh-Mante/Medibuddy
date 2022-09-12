@@ -14,31 +14,31 @@ namespace Medibuddy.DataAccess
         {
             _configuration = configuration;
             connection = new SqlConnection(_configuration.GetConnectionString("DbConnectionString"));
-            connection.Open();
-            command = connection.CreateCommand();
         }
 
         public async Task<Patient> Create(Patient patient)
         {
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Insert into {nameof(Patient)}({nameof(Patient.FirstName)}, {nameof(Patient.MidName)}, {nameof(Patient.LastName)}, {nameof(Patient.Mobile)},{nameof(Patient.Email)},{nameof(Patient.Address)},{nameof(Patient.Gender)},{nameof(Patient.DOB)})" +
                                   $" Values('{patient.FirstName}', '{patient.MidName}', '{patient.LastName}', '{patient.Mobile}', '{patient.Email}', '{patient.Address}', '{patient.Gender}', '{patient.DOB}')";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
 
             return patient;
         }
 
         public async Task<bool> Delete(int PID)
         {
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Delete from {nameof(Patient)} where {nameof(Patient.PID)} = {PID}";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
 
             return true;
         }
@@ -47,6 +47,8 @@ namespace Medibuddy.DataAccess
         {
             Patient? patient = null;
 
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(Patient.PID)}, {nameof(Patient.FirstName)}, {nameof(Patient.MidName)}, {nameof(Patient.LastName)}, {nameof(Patient.Mobile)},{nameof(Patient.Email)},{nameof(Patient.Address)},{nameof(Patient.Gender)},{nameof(Patient.DOB)}" +
                                   $" from {nameof(Patient)} where {nameof(Patient.PID)} = {PID}";
@@ -63,15 +65,16 @@ namespace Medibuddy.DataAccess
                     Mobile = reader.GetString(nameof(Patient.Mobile)),
                     Email = reader.GetString(nameof(Patient.Email)),
                     Address = reader.GetString(nameof(Patient.Address)),
-                    Gender = reader.GetChar(nameof(Patient.Gender)),
+                    Gender = reader.GetString(nameof(Patient.Gender))[0],
                     DOB= reader.GetDateTime(nameof(Patient.DOB))
 
 
                 };
             }
 
+            reader.Close();
+            reader.Dispose();
             connection.Close();
-            connection.Dispose();
 
             return patient;
         }
@@ -80,8 +83,10 @@ namespace Medibuddy.DataAccess
         {
             List<Patient> patients = new List<Patient>();
 
-            command.CommandType = CommandType.Text;
-            command.CommandText = $"Select {nameof(Patient.PID)}, {nameof(Patient.FirstName)}, {nameof(Patient.MidName)}, {nameof(Patient.LastName)}, {nameof(Patient.Mobile)},{nameof(Patient.Email)},{nameof(Patient.Address)},{nameof(Patient.Gender)},{nameof(Patient.DOB)}" +
+            connection.Open();
+            command = connection.CreateCommand();
+            command.CommandType = CommandType.Text; 
+            command.CommandText = $"Select {nameof(Patient.PID)}, {nameof(Patient.FirstName)}, {nameof(Patient.MidName)}, {nameof(Patient.LastName)}, {nameof(Patient.Mobile)}, {nameof(Patient.Email)}, {nameof(Patient.Address)}, {nameof(Patient.Gender)}, {nameof(Patient.DOB)}" +
                                   $" from {nameof(Patient)}";
 
             SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -96,22 +101,24 @@ namespace Medibuddy.DataAccess
                     Mobile = reader.GetString(nameof(Patient.Mobile)),
                     Email = reader.GetString(nameof(Patient.Email)),
                     Address = reader.GetString(nameof(Patient.Address)),
-                    Gender = reader.GetChar(nameof(Patient.Gender)),
+                    Gender = reader.GetString(nameof(Patient.Gender))[0],
                     DOB = reader.GetDateTime(nameof(Patient.DOB))
 
                 });
             }
 
+            reader.Close();
+            reader.Dispose();
             connection.Close();
-            connection.Dispose();
 
             return patients;
         }
 
         public async Task<Patient?> Update(int PID, Patient patient)
         {
-            command.CommandType = CommandType.Text;
-            command.CommandText = $"Update {nameof(Patient)} " +
+            connection.Open();
+            command = connection.CreateCommand();
+            command.CommandType = CommandType.Text; command.CommandText = $"Update {nameof(Patient)} " +
                 $"Set {nameof(Patient.FirstName)} = '{patient.FirstName}', " +
                 $"{nameof(Patient.MidName)} = '{patient.MidName}', " +
                 $"{nameof(Patient.LastName)} = '{patient.LastName}', " +
@@ -119,12 +126,11 @@ namespace Medibuddy.DataAccess
                 $"{nameof(Patient.Email)} = '{patient.Email}', " +
                 $"{nameof(Patient.Address)} = '{patient.Address}', " +
                 $"{nameof(Patient.Gender)} = '{patient.Gender}', " +
-                $"{nameof(Patient.DOB)} = '{patient.DOB}', " +
+                $"{nameof(Patient.DOB)} = '{patient.DOB}' " +
                 $"Where {nameof(Patient.PID)} = {PID}";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
 
             return patient;
         }

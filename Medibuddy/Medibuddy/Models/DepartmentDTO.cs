@@ -6,6 +6,7 @@ namespace Medibuddy.Models
 {
     public class DepartmentDTO
     {
-        
+        [Required]
+        public string DepName { get; set; }
     }
 }

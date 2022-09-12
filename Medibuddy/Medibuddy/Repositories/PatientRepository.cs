@@ -4,7 +4,7 @@ using Medibuddy.Utils;
 
 namespace Medibuddy.Repositories
 {
-    public class PatientRepository
+    public class PatientRepository : IPatientRepository
     {
         private readonly IPatientDataAccess _patientDataAccess;
 

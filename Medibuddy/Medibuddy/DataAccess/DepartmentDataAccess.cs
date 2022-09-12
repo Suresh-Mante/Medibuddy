@@ -15,31 +15,35 @@ namespace Medibuddy.DataAccess
         {
             _configuration = configuration;
             connection = new SqlConnection(_configuration.GetConnectionString("DbConnectionString"));
-            connection.Open();
-            command = connection.CreateCommand();
         }
 
         public async Task<Department> Create(Department department)
         {
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Insert into {nameof(Department)}({nameof(Department.DepName)}) " +                               
                                   $" Values('{department.DepName}')";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
+
 
             return department;
         }
 
         public async Task<bool> Delete(int DepID)
         {
+            
+
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Delete from {nameof(Department)} where {nameof(Department.DepID)} = {DepID}";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
+
 
             return true;
         }
@@ -48,6 +52,8 @@ namespace Medibuddy.DataAccess
         {
             Department? department = null;
 
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(Department.DepID)}, {nameof(Department.DepName)} " +               
                                   $" from {nameof(Department)} where {nameof(Department.DepID)} = {DepID}";
@@ -63,9 +69,9 @@ namespace Medibuddy.DataAccess
                 };
             }
 
+            reader.Close();
+            reader.Dispose();
             connection.Close();
-            connection.Dispose();
-
             return department;
         }
 
@@ -73,6 +79,8 @@ namespace Medibuddy.DataAccess
         {
             List<Department> departments = new List<Department>();
 
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(Department.DepID)}, {nameof(Department.DepName)}" +
                                   $" from {nameof(Department)}";
@@ -88,23 +96,24 @@ namespace Medibuddy.DataAccess
                 });
             }
 
+            reader.Close();
+            reader.Dispose();
             connection.Close();
-            connection.Dispose();
 
             return departments;
         }
 
         public async Task<Department?> Update(int DepID, Department department)
         {
+            connection.Open();
+            command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Update {nameof(Department)} " +
-                $"Set {nameof(Department.DepName)} = '{department.DepName}', " +
+                $"Set {nameof(Department.DepName)} = '{department.DepName}' " +
                 $"Where {nameof(Department.DepID)} = {DepID}";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
-            connection.Dispose();
-
             return department;
         }
     }
