@@ -23,10 +23,13 @@ namespace Medibuddy.Controllers
         /// Created department
         /// </returns>
         [HttpPost]
-        public Task<IActionResult> Create(Department department)
+        public async Task<Response<Department>> Create(Department department)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Department newDepartment = new Department()
+            {
+                DepName = department.DepName
+            };
+            return await _departmentRepository.Create(newDepartment);
         }
 
         /// <summary>
@@ -38,10 +41,9 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet("{DepID}")]
-        public Task<IActionResult> Get(int DepID)
+        public async Task<Response<Department>> Get(int DepID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _departmentRepository.Get(DepID);
         }
 
         /// <summary>
@@ -52,10 +54,9 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        public Task<IActionResult> Get()
+        public async Task<Response<Department>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _departmentRepository.Get();
         }
 
         /// <summary>
@@ -67,10 +68,12 @@ namespace Medibuddy.Controllers
         /// Updated department if exists
         /// </returns>
         [HttpPut]
-        public Task<IActionResult> Update(int DepID, Department department)
+        public async Task<Response<Department>> Update(int DepID, Department department)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _departmentRepository.Update(DepID, new Department()
+            {
+                DepName= department.DepName
+            });
         }
 
         /// <summary>
@@ -82,10 +85,9 @@ namespace Medibuddy.Controllers
         /// Deleted department if exists
         /// </returns>
         [HttpDelete]
-        public Task<IActionResult> Delete(int DepID)
+        public async Task<Response<Department>> Delete(int DepID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _departmentRepository.Delete(DepID);
         }
     }
 }

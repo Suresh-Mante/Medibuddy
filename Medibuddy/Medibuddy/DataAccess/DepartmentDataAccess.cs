@@ -1,5 +1,6 @@
 ﻿using Medibuddy.Models;
 using Medibuddy.Repositories;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace Medibuddy.DataAccess
@@ -14,36 +15,99 @@ namespace Medibuddy.DataAccess
         {
             _configuration = configuration;
             connection = new SqlConnection(_configuration.GetConnectionString("DbConnectionString"));
+            connection.Open();
             command = connection.CreateCommand();
         }
-        public Department Create(Department department)
+
+        public async Task<Department> Create(Department department)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Insert into {nameof(Department)}({nameof(Department.DepName)}) " +                               
+                                  $" Values('{department.DepName}')";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+            connection.Dispose();
+
+            return department;
         }
 
-        public Department Delete(int DepID)
+        public async Task<bool> Delete(int DepID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Delete from {nameof(Department)} where {nameof(Department.DepID)} = {DepID}";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+            connection.Dispose();
+
+            return true;
         }
 
-        public Department Get(int DepID)
+        public async Task<Department?> Get(int DepID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Department? department = null;
+
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Select {nameof(Department.DepID)}, {nameof(Department.DepName)} " +               
+                                  $" from {nameof(Department)} where {nameof(Department.DepID)} = {DepID}";
+
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (reader.Read())
+            {
+                department = new Department
+                {
+                    DepID = Convert.ToInt32(reader.GetValue(nameof(Department.DepID))),
+                    DepName = reader.GetString(nameof(Department.DepName))
+                    
+                };
+            }
+
+            connection.Close();
+            connection.Dispose();
+
+            return department;
         }
 
-        public IEnumerable<Department> Get()
+        public async Task<IEnumerable<Department>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            List<Department> departments = new List<Department>();
+
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Select {nameof(Department.DepID)}, {nameof(Department.DepName)}" +
+                                  $" from {nameof(Department)}";
+
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (reader.Read())
+            {
+                departments.Add(new Department
+                {
+                    DepID = Convert.ToInt32(reader.GetValue(nameof(Department.DepID))),
+                    DepName = reader.GetString(nameof(Department.DepName))
+                    
+                });
+            }
+
+            connection.Close();
+            connection.Dispose();
+
+            return departments;
         }
 
-        public Department Update(int DepID, Department department)
+        public async Task<Department?> Update(int DepID, Department department)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Update {nameof(Department)} " +
+                $"Set {nameof(Department.DepName)} = '{department.DepName}', " +
+                $"Where {nameof(Department.DepID)} = {DepID}";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+            connection.Dispose();
+
+            return department;
         }
     }
 }
+
+
