@@ -16,38 +16,48 @@ namespace Medibuddy.Controllers
         }
 
         [HttpPost]
-        public Task<IActionResult> Create(Nurse nurse)
+        public async Task<Response<Nurse>> Create(NurseDTO nurse)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Nurse newNurse = new Nurse()
+            {
+                Name = nurse.Name,
+                Mobile = nurse.Mobile,
+                Email = nurse.Email,
+                Gender = nurse.Gender,
+                Salary = nurse.Salary
+            };
+            return await _nurseRepository.Create(newNurse);
         }
 
-        [HttpGet("{id}")]
-        public Task<IActionResult> Get(int ID)
+        [HttpGet("{ID}")]
+        public async Task<Response<Nurse>> Get(int ID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _nurseRepository.Get(ID);
         }
 
         [HttpGet]
-        public Task<IActionResult> Get()
+        public async Task<Response<Nurse>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _nurseRepository.Get();
         }
 
         [HttpPut]
-        public Task<IActionResult> Update(int ID, Nurse nurse)
+        public async Task<Response<Nurse>> Update(int ID, NurseDTO nurse)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _nurseRepository.Update(ID, new Nurse()
+            {
+                Name = nurse.Name,
+                Mobile = nurse.Mobile,
+                Email = nurse.Email,
+                Gender = nurse.Gender,
+                Salary = nurse.Salary
+            });
         }
 
         [HttpDelete]
-        public Task<IActionResult> Delete(int ID)
+        public async Task<Response<Nurse>> Delete(int ID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _nurseRepository.Delete(ID);
         }
     }
 }

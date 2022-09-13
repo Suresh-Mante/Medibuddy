@@ -1,4 +1,4 @@
-﻿namespace Medibuddy.Utils
+namespace Medibuddy.Utils
 {
     public class HttpMessages
     {

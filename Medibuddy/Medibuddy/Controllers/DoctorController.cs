@@ -15,39 +15,56 @@ namespace Medibuddy.Controllers
             _doctorRepository = doctorRepository;
         }
 
+
         [HttpPost]
-        public Task<IActionResult> Create(Doctor doctor)
+        public async Task<Response<Doctor>> Create(DoctorDTO doctor)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Doctor newDoctor = new Doctor()
+            {
+                Name = doctor.Name,
+                Type = doctor.Type,
+                Mobile =doctor.Mobile,
+                Email = doctor.Email,
+                Gender = doctor.Gender,
+                Fees = doctor.Fees,
+                Salary = doctor.Salary
+            };
+            return await _doctorRepository.Create(newDoctor);
         }
 
-        [HttpGet("{id}")]
-        public Task<IActionResult> Get(int id)
-        {
-            //Write your implementation here
-            throw new NotImplementedException();
-        }
 
         [HttpGet]
-        public Task<IActionResult> Get()
+        public async Task<Response<Doctor>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _doctorRepository.Get();
         }
 
-        [HttpPut]
-        public Task<IActionResult> Update(int ID, Doctor doctor)
+        [HttpGet("{ID}")]
+        public async Task<Response<Doctor>> Get(int ID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _doctorRepository.Get(ID);
+        }
+
+
+        [HttpPut]
+        public async Task<Response<Doctor>> Update(int ID, DoctorDTO doctor)
+        {
+            return await _doctorRepository.Update(ID, new Doctor()
+            {
+                Name = doctor.Name,
+                Type = doctor.Type,
+                Mobile = doctor.Mobile,
+                Email = doctor.Email,
+                Gender = doctor.Gender,
+                Fees = doctor.Fees,
+                Salary = doctor.Salary
+            });
         }
 
         [HttpDelete]
-        public Task<IActionResult> Delete(int ID)
+        public async Task<Response<Doctor>> Delete(int ID)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+           return await _doctorRepository.Delete(ID); 
         }
     }
 }
