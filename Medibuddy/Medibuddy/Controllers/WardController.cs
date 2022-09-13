@@ -23,10 +23,16 @@ namespace Medibuddy.Controllers
         /// Created ward
         /// </returns>
         [HttpPost]
-        public Task<IActionResult> Create(Ward ward)
+        public async Task<Response<Ward>> Create(WardDTO ward)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Ward newWard = new Ward()
+            {
+                DepId = ward.DepId,
+                RoomGeneralCapacity = ward.RoomGeneralCapacity,
+                RoomSharedCapacity = ward.RoomSharedCapacity,
+                RoomSpecialCapacity = ward.RoomSpecialCapacity
+            };
+            return await _wardRepository.Create(newWard);
         }
 
         /// <summary>
@@ -38,10 +44,9 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet("{id}")]
-        public Task<IActionResult> Get(int id)
+        public async Task<Response<Ward>> Get(int id)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _wardRepository.Get(id);
         }
 
         /// <summary>
@@ -52,10 +57,9 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        public Task<IActionResult> Get()
+        public async Task<Response<Ward>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _wardRepository.Get();
         }
 
         /// <summary>
@@ -67,10 +71,15 @@ namespace Medibuddy.Controllers
         /// Updated ward if exists
         /// </returns>
         [HttpPut]
-        public Task<IActionResult> Update(int id, Ward ward)
+        public async Task<Response<Ward>> Update(int id, WardDTO ward)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _wardRepository.Update(id, new Ward()
+            {
+                DepId = ward.DepId,
+                RoomGeneralCapacity = ward.RoomGeneralCapacity,
+                RoomSharedCapacity = ward.RoomSharedCapacity,
+                RoomSpecialCapacity = ward.RoomSpecialCapacity
+            });
         }
 
         /// <summary>
@@ -82,10 +91,9 @@ namespace Medibuddy.Controllers
         /// Deleted ward if exists
         /// </returns>
         [HttpDelete]
-        public Task<IActionResult> Delete(int id)
+        public async Task<Response<Ward>> Delete(int id)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            return await _wardRepository.Delete(id);
         }
     }
 }

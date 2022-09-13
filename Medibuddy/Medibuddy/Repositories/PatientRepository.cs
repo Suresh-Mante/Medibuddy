@@ -4,25 +4,25 @@ using Medibuddy.Utils;
 
 namespace Medibuddy.Repositories
 {
-    public class WardRepository : IWardRepository
+    public class PatientRepository : IPatientRepository
     {
-        private readonly IWardDataAccess _wardDataAccess;
+        private readonly IPatientDataAccess _patientDataAccess;
 
-        public WardRepository(IWardDataAccess wardDataAccess)
+        public PatientRepository(IPatientDataAccess patientDataAccess)
         {
-            _wardDataAccess = wardDataAccess;
+            _patientDataAccess = patientDataAccess;
         }
 
-        public async Task<Response<Ward>> Create(Ward ward)
+        public async Task<Response<Patient>> Create(Patient patient)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Patient> response = new Response<Patient>();
 
             try
             {
-                Ward createdWard = await _wardDataAccess.Create(ward);
+                Patient createdPatient = await _patientDataAccess.Create(patient);
                 response.StatusCode = 201;
                 response.StatusMessage = HttpMessages.Created;
-                response.Record = createdWard;
+                response.Record = createdPatient;
             }
             catch (Exception ex)
             {
@@ -35,19 +35,19 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Delete(int id)
+        public async Task<Response<Patient>> Delete(int PID)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Patient> response = new Response<Patient>();
 
             try
             {
-                Ward? existingWard = await _wardDataAccess.Get(id);
-                if (existingWard != null)
+                Patient? existingPatient = await _patientDataAccess.Get(PID);
+                if (existingPatient != null)
                 {
-                    await _wardDataAccess.Delete(id);
+                    await _patientDataAccess.Delete(PID);
                     response.StatusCode = 200;
-                    response.StatusMessage = HttpMessages.Deleted;
-                    response.Record = existingWard;
+                    response.StatusMessage = HttpMessages.Created;
+                    response.Record = existingPatient;
                 }
                 else
                 {
@@ -66,18 +66,18 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Get(int id)
+        public async Task<Response<Patient>> Get(int PID)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Patient> response = new Response<Patient>();
 
             try
             {
-                Ward? ward = await _wardDataAccess.Get(id);
-                if(ward != null)
+                Patient? patient = await _patientDataAccess.Get(PID);
+                if (patient != null)
                 {
                     response.StatusCode = 200;
                     response.StatusMessage = HttpMessages.Ok;
-                    response.Record = ward;
+                    response.Record = patient;
                 }
                 else
                 {
@@ -96,16 +96,16 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Get()
+        public async Task<Response<Patient>> Get()
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Patient> response = new Response<Patient>();
 
             try
             {
-                List<Ward> wards = (await _wardDataAccess.Get()).ToList();
+                List<Patient> patients = (await _patientDataAccess.Get()).ToList();
                 response.StatusCode = 200;
                 response.StatusMessage = HttpMessages.Ok;
-                response.Records = wards;
+                response.Records = patients;
             }
             catch (Exception ex)
             {
@@ -118,19 +118,19 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Ward>> Update(int id, Ward ward)
+        public async Task<Response<Patient>> Update(int PID, Patient patient)
         {
-            Response<Ward> response = new Response<Ward>();
+            Response<Patient> response = new Response<Patient>();
 
             try
             {
-                Ward? existingWard = await _wardDataAccess.Get(id);
-                if(existingWard != null)
+                Patient? existingPatient = await _patientDataAccess.Get(PID);
+                if (existingPatient != null)
                 {
-                    Ward? updatedWard = await _wardDataAccess.Update(id, ward);
-                    response.StatusCode = 204;
-                    response.StatusMessage = HttpMessages.Updated;
-                    response.Record = updatedWard;
+                    Patient? updatedPatient = await _patientDataAccess.Update(PID, patient);
+                    response.StatusCode = 201;
+                    response.StatusMessage = HttpMessages.Created;
+                    response.Record = updatedPatient;
                 }
                 else
                 {
