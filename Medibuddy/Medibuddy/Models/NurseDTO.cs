@@ -16,6 +16,7 @@ namespace Medibuddy.Models
         [Required(ErrorMessage = ErrorMessages.Required)]
         public char Gender { get; set; }
 
+        [NonNegativeDecimalNumber(ErrorMessage = ErrorMessages.RequiredPositiveNumber)]
         public decimal Salary { get; set; }
     }
 }
