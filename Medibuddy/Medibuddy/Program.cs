@@ -13,7 +13,7 @@ builder.Services.AddScoped<IWardDataAccess, WardDataAccess>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientDataAccess, PatientDataAccess>();
 
-For Department Api
+//For Department Api
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDepartmentDataAccess, DepartmentDataAccess>();
 
