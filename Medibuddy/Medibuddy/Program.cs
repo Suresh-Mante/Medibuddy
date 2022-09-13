@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IWardRepository, WardRepository>();
 builder.Services.AddScoped<IWardDataAccess, WardDataAccess>();
 
+//For Test Api
+builder.Services.AddScoped<ITestRepository, TestRepository>();
+builder.Services.AddScoped<ITestDataAccess, TestDataAccess>();
+
 //For Patient Api
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientDataAccess, PatientDataAccess>();
