@@ -1,7 +1,6 @@
 ﻿using Medibuddy.Models;
 using Medibuddy.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
 
 namespace Medibuddy.Controllers
 {
@@ -24,14 +23,9 @@ namespace Medibuddy.Controllers
         /// Created test
         /// </returns>
         [HttpPost]
-        public async Task<Response<Test>> Create(TestDTO test)
+        public Task<IActionResult> Create(Test test)
         {
-            Test newTest = new Test()
-            {
-                Name = test.Name,
-                Price = test.Price
-            };
-            return await _testRepository.Create(newTest);
+            //Write your implementation here
             throw new NotImplementedException();
         }
 
@@ -44,9 +38,9 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet("{Id}")]
-        public async Task<Response<Test>> Get(int Id)
+        public Task<IActionResult> Get(int Id)
         {
-            return await _testRepository.Get(Id);
+            //Write your implementation here
             throw new NotImplementedException();
         }
 
@@ -58,11 +52,10 @@ namespace Medibuddy.Controllers
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        public async Task<Response<Test>> Get()
+        public Task<IActionResult> Get()
         {
-            return await _testRepository.Get();
+            //Write your implementation here
             throw new NotImplementedException();
-
         }
 
         /// <summary>
@@ -74,13 +67,9 @@ namespace Medibuddy.Controllers
         /// Updated test if exists
         /// </returns>
         [HttpPut]
-        public async Task<Response<Test>> Update(int Id, TestDTO test)
+        public Task<IActionResult> Update(int Id, Test test)
         {
-            return await _testRepository.Update(Id, new Test()
-            {
-                Name = test.Name,
-                Price = test.Price
-            });
+            //Write your implementation here
             throw new NotImplementedException();
         }
 
@@ -93,9 +82,9 @@ namespace Medibuddy.Controllers
         /// Deleted test if exists
         /// </returns>
         [HttpDelete]
-        public async Task<Response<Test>> Delete(int Id)
+        public Task<IActionResult> Delete(int Id)
         {
-            return await _testRepository.Delete(Id);
+            //Write your implementation here
             throw new NotImplementedException();
         }
     }
