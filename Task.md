@@ -12,3 +12,13 @@
 - Suresh
     - Create Ward Api
     - Create Room Api
+
+# 13/09/2022
+- Soudip
+    - OPDBilling
+- Ajay
+    - OPDTest
+- Ravi
+    - OPDMedicine
+- Suresh
+    - OPDPatient
