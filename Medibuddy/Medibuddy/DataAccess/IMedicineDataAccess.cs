@@ -4,10 +4,10 @@ namespace Medibuddy.DataAccess
 {
     public interface IMedicineDataAccess
     {
-        public Medicine Create(Medicine medicine);
-        public Medicine Get(int Id);
-        public IEnumerable<Medicine> Get();
-        public Medicine Update(int Id, Medicine medicine);
-        public Medicine Delete(int Id);
+        public Task<Medicine?> Create(Medicine medicine);
+        public Task<Medicine?> Get(int Id);
+        public Task<IEnumerable<Medicine>> Get();
+        public Task<Medicine?> Update(int Id, Medicine medicine);
+        public Task<bool> Delete(int Id);
     }
 }
