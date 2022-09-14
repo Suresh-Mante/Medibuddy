@@ -29,6 +29,10 @@ builder.Services.AddScoped<IDoctorDataAccess, DoctorDataAccess>();
 builder.Services.AddScoped<INurseRepository, NurseRepository>();
 builder.Services.AddScoped<INurseDataAccess, NurseDataAccess>();
 
+//For OPDTest API
+builder.Services.AddScoped<IOPDTestRepository, OPDTestRepository>();
+builder.Services.AddScoped<IOPDTestDataAccess, OPDTestDataAccess>();
+
 //For OPDPatient Api
 builder.Services.AddScoped<IOPDPatientRepository, OPDPatientRepository>();
 builder.Services.AddScoped<IOPDPatientDataAccess, OPDPatientDataAccess>();
