@@ -33,19 +33,19 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<OPDTest>> Delete(int OPDBillingID,int TestID)
+        public async Task<Response<OPDTest>> Delete(int OPDBillingID)
         {
             Response<OPDTest> response = new Response<OPDTest>();
 
             try
             {
-                OPDTest? existingOPDTest = await _opdtestDataAccess.Get(OPDBillingID,TestID);
-                if (existingOPDTest != null)
+                List<OPDTest> opdtests = (await _opdtestDataAccess.Get(OPDBillingID)).ToList();
+                if (opdtests.Count>0)
                 {
-                    await _opdtestDataAccess.Delete(OPDBillingID,TestID);
+                    await _opdtestDataAccess.Delete(OPDBillingID);
                     response.StatusCode = 200;
                     response.StatusMessage = HttpMessages.Deleted;
-                    response.Record = existingOPDTest;
+                    response.Records = opdtests;
                 }
                 else
                 {
@@ -63,24 +63,16 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<OPDTest>> Get(int OPDBillingID,int TestID)
+        public async Task<Response<OPDTest>> Get(int OPDBillingID)
         {
             Response<OPDTest> response = new Response<OPDTest>();
 
             try
             {
-                OPDTest? opdtest = await _opdtestDataAccess.Get(OPDBillingID,TestID);
-                if (opdtest != null)
-                {
-                    response.StatusCode = 200;
-                    response.StatusMessage = HttpMessages.Ok;
-                    response.Record = opdtest;
-                }
-                else
-                {
-                    response.StatusCode = 404;
-                    response.StatusMessage = HttpMessages.NotFound;
-                }
+                List<OPDTest> opdtests = (await _opdtestDataAccess.Get(OPDBillingID)).ToList();
+                response.StatusCode = 200;
+                response.StatusMessage = HttpMessages.Ok;
+                response.Records = opdtests;
             }
             catch (Exception ex)
             {
@@ -115,6 +107,8 @@ namespace Medibuddy.Repositories
             return response;
         }
 
+
+        /*
         public async Task<Response<OPDTest>> Update(int OPDBillingID, int OPDTestID, OPDTest opdtest)
         {
             Response<OPDTest> response = new Response<OPDTest>();
@@ -145,5 +139,6 @@ namespace Medibuddy.Repositories
 
             return response;
         }
+        */
     }
 }

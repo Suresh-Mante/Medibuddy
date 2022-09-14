@@ -27,10 +27,10 @@ namespace Medibuddy.Controllers
             return await _opdtestRepository.Create(newOPDTest);
         }
 
-        [HttpGet("{id}")]
-        public async Task<Response<OPDTest>> Get(int OPDBillingID,int TestID)
+        [HttpGet("{OPDBillingID}")]
+        public async Task<Response<OPDTest>> Get(int OPDBillingID)
         {
-            return await _opdtestRepository.Get(OPDBillingID,TestID);
+            return await _opdtestRepository.Get(OPDBillingID);
         }
 
         [HttpGet]
@@ -39,20 +39,10 @@ namespace Medibuddy.Controllers
             return await _opdtestRepository.Get();
         }
 
-        [HttpPut]
-        public async Task<Response<OPDTest>> Update(int OPDBillingID,int TestID, OPDTestDTO opdtest)
-        {
-            return await _opdtestRepository.Update(OPDBillingID,TestID, new OPDTest()
-            {
-                OPDBillingID = opdtest.OPDBillingID,
-                TestID = opdtest.TestID
-            });
-        }
-
         [HttpDelete]
-        public async Task<Response<OPDTest>> Delete(int OPDBillingID,int TestID)
+        public async Task<Response<OPDTest>> Delete(int OPDBillingID)
         {
-            return await _opdtestRepository.Delete(OPDBillingID,TestID);
+            return await _opdtestRepository.Delete(OPDBillingID);
         }
     }
 }
