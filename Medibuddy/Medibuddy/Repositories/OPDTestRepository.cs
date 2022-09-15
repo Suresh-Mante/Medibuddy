@@ -4,51 +4,48 @@ using Medibuddy.Utils;
 
 namespace Medibuddy.Repositories
 {
-    public class PatientRepository : IPatientRepository
+    public class OPDTestRepository : IOPDTestRepository
     {
-        private readonly IPatientDataAccess _patientDataAccess;
+        private readonly IOPDTestDataAccess _opdtestDataAccess;
 
-        public PatientRepository(IPatientDataAccess patientDataAccess)
+        public OPDTestRepository(IOPDTestDataAccess opdtestDataAccess)
         {
-            _patientDataAccess = patientDataAccess;
+            _opdtestDataAccess = opdtestDataAccess;
         }
-
-        public async Task<Response<Patient>> Create(Patient patient)
+        public async Task<Response<OPDTest>> Create(OPDTest opdtest)
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDTest> response = new Response<OPDTest>();
 
             try
             {
-                Patient createdPatient = await _patientDataAccess.Create(patient);
+                OPDTest createdOPDTest = await _opdtestDataAccess.Create(opdtest);
                 response.StatusCode = 201;
                 response.StatusMessage = HttpMessages.Created;
-                response.Record = createdPatient;
+                response.Record = createdOPDTest;
             }
             catch (Exception ex)
             {
                 //Write logic to log this exceptions somewhere//
-
                 response.StatusCode = 500;
                 response.StatusMessage = HttpMessages.InternalServerError;
-                //response.StatusMessage=ex.ToString();
             }
 
             return response;
         }
 
-        public async Task<Response<Patient>> Delete(int PID)
+        public async Task<Response<OPDTest>> Delete(int OPDBillingID)
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDTest> response = new Response<OPDTest>();
 
             try
             {
-                Patient? existingPatient = await _patientDataAccess.Get(PID);
-                if (existingPatient != null)
+                List<OPDTest> opdtests = (await _opdtestDataAccess.Get(OPDBillingID)).ToList();
+                if (opdtests.Count>0)
                 {
-                    await _patientDataAccess.Delete(PID);
+                    await _opdtestDataAccess.Delete(OPDBillingID);
                     response.StatusCode = 200;
-                    response.StatusMessage = HttpMessages.Created;
-                    response.Record = existingPatient;
+                    response.StatusMessage = HttpMessages.Deleted;
+                    response.Records = opdtests;
                 }
                 else
                 {
@@ -63,50 +60,19 @@ namespace Medibuddy.Repositories
                 response.StatusCode = 500;
                 response.StatusMessage = HttpMessages.InternalServerError;
             }
-
             return response;
         }
 
-        public async Task<Response<Patient>> Get(int PID)
+        public async Task<Response<OPDTest>> Get(int OPDBillingID)
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDTest> response = new Response<OPDTest>();
 
             try
             {
-                Patient? patient = await _patientDataAccess.Get(PID);
-                if (patient != null)
-                {
-                    response.StatusCode = 200;
-                    response.StatusMessage = HttpMessages.Ok;
-                    response.Record = patient;
-                }
-                else
-                {
-                    response.StatusCode = 404;
-                    response.StatusMessage = HttpMessages.NotFound;
-                }
-            }
-            catch (Exception ex)
-            {
-                //Write logic to log this exceptions somewhere//
-
-                response.StatusCode = 500;
-                response.StatusMessage = HttpMessages.InternalServerError;
-            }
-
-            return response;
-        }
-
-        public async Task<Response<Patient>> Get()
-        {
-            Response<Patient> response = new Response<Patient>();
-
-            try
-            {
-                List<Patient> patients = (await _patientDataAccess.Get()).ToList();
+                List<OPDTest> opdtests = (await _opdtestDataAccess.Get(OPDBillingID)).ToList();
                 response.StatusCode = 200;
                 response.StatusMessage = HttpMessages.Ok;
-                response.Records = patients;
+                response.Records = opdtests;
             }
             catch (Exception ex)
             {
@@ -119,19 +85,43 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Patient>> Update(int PID, Patient patient)
+        public async Task<Response<OPDTest>> Get()
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDTest> response = new Response<OPDTest>();
 
             try
             {
-                Patient? existingPatient = await _patientDataAccess.Get(PID);
-                if (existingPatient != null)
+                List<OPDTest> opdtests = (await _opdtestDataAccess.Get()).ToList();
+                response.StatusCode = 200;
+                response.StatusMessage = HttpMessages.Ok;
+                response.Records = opdtests;
+            }
+            catch (Exception ex)
+            {
+                //Write logic to log this exceptions somewhere//
+
+                response.StatusCode = 500;
+                response.StatusMessage = HttpMessages.InternalServerError;
+            }
+
+            return response;
+        }
+
+
+        /*
+        public async Task<Response<OPDTest>> Update(int OPDBillingID, int OPDTestID, OPDTest opdtest)
+        {
+            Response<OPDTest> response = new Response<OPDTest>();
+
+            try
+            {
+                OPDTest? existingopdtest = await _opdtestDataAccess.Get(OPDBillingID,OPDTestID);
+                if (existingopdtest != null)
                 {
-                    Patient? updatedPatient = await _patientDataAccess.Update(PID, patient);
-                    response.StatusCode = 201;
-                    response.StatusMessage = HttpMessages.Created;
-                    response.Record = updatedPatient;
+                    OPDTest? updatedopdtest = await _opdtestDataAccess.Update(OPDBillingID,OPDTestID,opdtest);
+                    response.StatusCode = 204;
+                    response.StatusMessage = HttpMessages.Updated;
+                    response.Record = updatedopdtest;
                 }
                 else
                 {
@@ -149,5 +139,6 @@ namespace Medibuddy.Repositories
 
             return response;
         }
+        */
     }
 }

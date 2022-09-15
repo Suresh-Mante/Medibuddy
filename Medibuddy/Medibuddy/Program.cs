@@ -37,6 +37,22 @@ builder.Services.AddScoped<INurseDataAccess, NurseDataAccess>();
 builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
 builder.Services.AddScoped<IMedicineDataAccess, MedicineDataAccess>();
 
+//For OPDBilling Api
+builder.Services.AddScoped<IOPDBillingRepository, OPDBillingRepository>();
+builder.Services.AddScoped<IOPDBillingDataAccess, OPDBillingDataAccess>();
+
+//For OPDTest API
+builder.Services.AddScoped<IOPDTestRepository, OPDTestRepository>();
+builder.Services.AddScoped<IOPDTestDataAccess, OPDTestDataAccess>();
+
+//For OPDMedicine API
+builder.Services.AddScoped<IOPDMedicineRepository, OPDMedicineRepository>();
+builder.Services.AddScoped<IOPDMedicineDataAccess, OPDMedicineDataAccess>();
+
+//For OPDPatient Api
+builder.Services.AddScoped<IOPDPatientRepository, OPDPatientRepository>();
+builder.Services.AddScoped<IOPDPatientDataAccess, OPDPatientDataAccess>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
