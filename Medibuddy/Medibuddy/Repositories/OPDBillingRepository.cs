@@ -4,25 +4,25 @@ using Medibuddy.Utils;
 
 namespace Medibuddy.Repositories
 {
-    public class PatientRepository : IPatientRepository
+    public class OPDBillingRepository : IOPDBillingRepository
     {
-        private readonly IPatientDataAccess _patientDataAccess;
+        private readonly IOPDBillingDataAccess _OPDBillingDataAccess;
 
-        public PatientRepository(IPatientDataAccess patientDataAccess)
+        public OPDBillingRepository(IOPDBillingDataAccess OPDBillingDataAccess)
         {
-            _patientDataAccess = patientDataAccess;
+            _OPDBillingDataAccess = OPDBillingDataAccess;
         }
 
-        public async Task<Response<Patient>> Create(Patient patient)
+        public async Task<Response<OPDBilling>> Create(OPDBilling OPDBilling)
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDBilling> response = new Response<OPDBilling>();
 
             try
             {
-                Patient createdPatient = await _patientDataAccess.Create(patient);
+                OPDBilling createdOPDBilling = await _OPDBillingDataAccess.Create(OPDBilling);
                 response.StatusCode = 201;
                 response.StatusMessage = HttpMessages.Created;
-                response.Record = createdPatient;
+                response.Record = createdOPDBilling;
             }
             catch (Exception ex)
             {
@@ -30,25 +30,25 @@ namespace Medibuddy.Repositories
 
                 response.StatusCode = 500;
                 response.StatusMessage = HttpMessages.InternalServerError;
-                //response.StatusMessage=ex.ToString();
+                //response.StatusMessage = ex.ToString();
             }
 
             return response;
         }
 
-        public async Task<Response<Patient>> Delete(int PID)
+        public async Task<Response<OPDBilling>> Delete(int id)
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDBilling> response = new Response<OPDBilling>();
 
             try
             {
-                Patient? existingPatient = await _patientDataAccess.Get(PID);
-                if (existingPatient != null)
+                OPDBilling? existingOPDBilling = await _OPDBillingDataAccess.Get(id);
+                if (existingOPDBilling != null)
                 {
-                    await _patientDataAccess.Delete(PID);
+                    await _OPDBillingDataAccess.Delete(id);
                     response.StatusCode = 200;
-                    response.StatusMessage = HttpMessages.Created;
-                    response.Record = existingPatient;
+                    response.StatusMessage = HttpMessages.Deleted;
+                    response.Record = existingOPDBilling;
                 }
                 else
                 {
@@ -67,18 +67,18 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Patient>> Get(int PID)
+        public async Task<Response<OPDBilling>> Get(int id)
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDBilling> response = new Response<OPDBilling>();
 
             try
             {
-                Patient? patient = await _patientDataAccess.Get(PID);
-                if (patient != null)
+                OPDBilling? OPDBilling = await _OPDBillingDataAccess.Get(id);
+                if (OPDBilling != null)
                 {
                     response.StatusCode = 200;
                     response.StatusMessage = HttpMessages.Ok;
-                    response.Record = patient;
+                    response.Record = OPDBilling;
                 }
                 else
                 {
@@ -97,16 +97,16 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Patient>> Get()
+        public async Task<Response<OPDBilling>> Get()
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDBilling> response = new Response<OPDBilling>();
 
             try
             {
-                List<Patient> patients = (await _patientDataAccess.Get()).ToList();
+                List<OPDBilling> OPDBillings = (await _OPDBillingDataAccess.Get()).ToList();
                 response.StatusCode = 200;
                 response.StatusMessage = HttpMessages.Ok;
-                response.Records = patients;
+                response.Records = OPDBillings;
             }
             catch (Exception ex)
             {
@@ -119,19 +119,19 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-        public async Task<Response<Patient>> Update(int PID, Patient patient)
+        public async Task<Response<OPDBilling>> Update(int id, OPDBilling OPDBilling)
         {
-            Response<Patient> response = new Response<Patient>();
+            Response<OPDBilling> response = new Response<OPDBilling>();
 
             try
             {
-                Patient? existingPatient = await _patientDataAccess.Get(PID);
-                if (existingPatient != null)
+                OPDBilling? existingOPDBilling = await _OPDBillingDataAccess.Get(id);
+                if (existingOPDBilling != null)
                 {
-                    Patient? updatedPatient = await _patientDataAccess.Update(PID, patient);
-                    response.StatusCode = 201;
-                    response.StatusMessage = HttpMessages.Created;
-                    response.Record = updatedPatient;
+                    OPDBilling? updatedOPDBilling = await _OPDBillingDataAccess.Update(id, OPDBilling);
+                    response.StatusCode = 204;
+                    response.StatusMessage = HttpMessages.Updated;
+                    response.Record = updatedOPDBilling;
                 }
                 else
                 {
