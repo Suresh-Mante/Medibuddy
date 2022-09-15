@@ -2,7 +2,7 @@
 
 namespace Medibuddy.Repositories
 {
-    public class IOPDMedicineRepository
+    public interface IOPDMedicineRepository
     {
 
         public Task<Response<OPDMedicine>> Create(OPDMedicine opdmedicine);

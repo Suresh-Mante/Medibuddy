@@ -2,7 +2,7 @@
 
 namespace Medibuddy.DataAccess
 {
-    public class IOPDMedicineDataAccess
+    public interface IOPDMedicineDataAccess
     {
         public Task<OPDMedicine> Create(OPDMedicine opdmedicine);
         public Task<IEnumerable<OPDMedicine>> Get(int OPDBillingID);
