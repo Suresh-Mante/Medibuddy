@@ -107,38 +107,5 @@ namespace Medibuddy.Repositories
             return response;
         }
 
-
-        /*
-        public async Task<Response<OPDMedicine>> Update(int OPDBillingID, int OPDMedicineID, OPDMedicine opdmedicine)
-        {
-            Response<OPDMedicine> response = new Response<OPDMedicine>();
-
-            try
-            {
-                OPDMedicine? existingopdmedicine = await _opdmedicineDataAccess.Get(OPDBillingID,OPDMedicineID);
-                if (existingopdmedicine != null)
-                {
-                    OPDMedicine? updatedopdmedicine = await _opdmedicineDataAccess.Update(OPDBillingID,OPDMedicineID,opdmedicine);
-                    response.StatusCode = 204;
-                    response.StatusMessage = HttpMessages.Updated;
-                    response.Record = updatedopdmedicine;
-                }
-                else
-                {
-                    response.StatusCode = 404;
-                    response.StatusMessage = HttpMessages.NotFound;
-                }
-            }
-            catch (Exception ex)
-            {
-                //Write logic to log this exceptions somewhere//
-
-                response.StatusCode = 500;
-                response.StatusMessage = HttpMessages.InternalServerError;
-            }
-
-            return response;
-        }
-        */
     }
 }
