@@ -104,7 +104,7 @@ namespace Medibuddy.DataAccess
             command = connection.CreateCommand();
             command.CommandType = CommandType.Text; command.CommandText = $"Update {nameof(Test)} " +
                 $"Set {nameof(Test.Name)} = '{test.Name}', " +
-                $"{nameof(Test.Price)} = {test.Price}, " +
+                $"{nameof(Test.Price)} = {test.Price} " +
                 $"Where {nameof(Test.Id)} = {Id}";
 
             await command.ExecuteNonQueryAsync();
