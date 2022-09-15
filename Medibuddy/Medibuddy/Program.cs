@@ -13,7 +13,7 @@ builder.Services.AddScoped<IWardDataAccess, WardDataAccess>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientDataAccess, PatientDataAccess>();
 
-For Department Api
+//For Department Api
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDepartmentDataAccess, DepartmentDataAccess>();
 
@@ -28,6 +28,9 @@ builder.Services.AddScoped<IDoctorDataAccess, DoctorDataAccess>();
 //For Nurse Api
 builder.Services.AddScoped<INurseRepository, NurseRepository>();
 builder.Services.AddScoped<INurseDataAccess, NurseDataAccess>();
+
+builder.Services.AddScoped<IOPDBillingRepository, OPDBillingRepository>();
+builder.Services.AddScoped<IOPDBillingDataAccess, OPDBillingDataAccess>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
