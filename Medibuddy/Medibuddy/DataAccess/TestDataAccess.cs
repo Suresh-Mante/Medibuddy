@@ -1,5 +1,7 @@
 ﻿using Medibuddy.Models;
+using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace Medibuddy.DataAccess
 {
@@ -13,36 +15,102 @@ namespace Medibuddy.DataAccess
         {
             _configuration = configuration;
             connection = new SqlConnection(_configuration.GetConnectionString("DbConnectionString"));
+            //command = connection.CreateCommand();
+        }
+        public async Task<Test> Create(Test test)
+        {
+            connection.Open();
             command = connection.CreateCommand();
-        }
-        public Test Create(Test test)
-        {
-            //Write your implementation here
-            throw new NotImplementedException();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Insert into {nameof(Test)}({nameof(Test.Name)}, {nameof(Test.Price)})" +
+                                  $" Values('{test.Name}', '{test.Price}')";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+
+            return test ;
         }
 
-        public Test Delete(int Id)
+        public async Task<bool> Delete(int Id)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            connection.Open();
+            command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Delete from {nameof(Test)} where {nameof(Test.Id)} = {Id}";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+
+            return true;
         }
 
-        public Test Get(int Id)
+        public async Task<Test?> Get(int Id)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            Test? test = null;
+
+            connection.Open();
+            command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Select {nameof(Test.Id)}, {nameof(Test.Name)}, {nameof(Test.Price)}" +
+                                  $" from {nameof(Test)} where {nameof(Test.Id)} = {Id}";
+
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (reader.Read())
+            {
+                test = new Test
+                {
+                    Id = Convert.ToInt32(reader.GetValue(nameof(Test.Id))),
+                    Name = reader.GetString(nameof(Test.Name)),
+                    Price = Convert.ToInt32(reader.GetValue(nameof(Test.Price)))
+                };
+            }
+
+            reader.Close();
+            reader.Dispose();
+            connection.Close();
+
+            return test;
         }
 
-        public IEnumerable<Test> Get()
+        public async Task<IEnumerable<Test>> Get()
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            List<Test> tests = new List<Test>();
+            connection.Open();
+            command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"Select {nameof(Test.Id)}, {nameof(Test.Name)}, {nameof(Test.Price)}" +
+                                  $" from {nameof(Test)}";
+
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            while (reader.Read())
+            {
+                tests.Add(new Test
+                {
+                    Id = Convert.ToInt32(reader.GetValue(nameof(Test.Id))),
+                    Name = reader.GetString(nameof(Test.Name)),
+                    Price = Convert.ToInt32(reader.GetValue(nameof(Test.Price)))
+                });
+            }
+
+            reader.Close();
+            reader.Dispose();
+            connection.Close();
+            return tests;
         }
 
-        public Test Update(int Id, Test test)
+        public async Task<Test?> Update(int Id, Test test)
         {
-            //Write your implementation here
-            throw new NotImplementedException();
+            connection.Open();
+            command = connection.CreateCommand();
+            command.CommandType = CommandType.Text; command.CommandText = $"Update {nameof(Test)} " +
+                $"Set {nameof(Test.Name)} = '{test.Name}', " +
+                $"{nameof(Test.Price)} = {test.Price} " +
+                $"Where {nameof(Test.Id)} = {Id}";
+
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+
+            return test;
         }
     }
 }
