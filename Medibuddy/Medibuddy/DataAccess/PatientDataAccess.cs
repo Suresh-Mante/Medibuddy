@@ -22,7 +22,7 @@ namespace Medibuddy.DataAccess
             command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Insert into {nameof(Patient)}({nameof(Patient.FirstName)}, {nameof(Patient.MidName)}, {nameof(Patient.LastName)}, {nameof(Patient.Mobile)},{nameof(Patient.Email)},{nameof(Patient.Address)},{nameof(Patient.Gender)},{nameof(Patient.DOB)})" +
-                                  $" Values('{patient.FirstName}', '{patient.MidName}', '{patient.LastName}', '{patient.Mobile}', '{patient.Email}', '{patient.Address}', '{patient.Gender}', '{patient.DOB}')";
+                                  $" Values('{patient.FirstName}', '{patient.MidName}', '{patient.LastName}', '{patient.Mobile}', '{patient.Email}', '{patient.Address}', '{patient.Gender}', '{patient.DOB:MM-dd-yyyy}')";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
@@ -126,7 +126,7 @@ namespace Medibuddy.DataAccess
                 $"{nameof(Patient.Email)} = '{patient.Email}', " +
                 $"{nameof(Patient.Address)} = '{patient.Address}', " +
                 $"{nameof(Patient.Gender)} = '{patient.Gender}', " +
-                $"{nameof(Patient.DOB)} = '{patient.DOB}' " +
+                $"{nameof(Patient.DOB)} = '{patient.DOB:MM-dd-yyyy}' " +
                 $"Where {nameof(Patient.PID)} = {PID}";
 
             await command.ExecuteNonQueryAsync();

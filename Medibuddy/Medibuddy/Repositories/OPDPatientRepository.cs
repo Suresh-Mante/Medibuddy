@@ -29,7 +29,8 @@ namespace Medibuddy.Repositories
                 //Write logic to log this exceptions somewhere//
 
                 response.StatusCode = 500;
-                response.StatusMessage = HttpMessages.InternalServerError;
+                //response.StatusMessage = HttpMessages.InternalServerError;
+                response.StatusMessage = ex.Message;
             }
 
             return response;
