@@ -20,5 +20,8 @@ namespace Medibuddy.Models
         [Required(ErrorMessage = ErrorMessages.Required)]
         [NonZeroAndNonNegativeNumber(ErrorMessage = ErrorMessages.RequiredPositiveNumber)]
         public int OPDBillingID { get; set; }
+
+        [Required(ErrorMessage = ErrorMessages.Required)]
+        public bool Discharged { get; set; } = false;
     }
 }
