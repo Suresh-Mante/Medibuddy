@@ -22,3 +22,9 @@
     - OPDMedicine
 - Suresh
     - OPDPatient
+
+# 19/09/2022
+- Ajay
+    - IPDBilling
+    - IPDTest
+    - IPDMedicine
