@@ -6,7 +6,6 @@ namespace Medibuddy.Models
     {
         [Required]
         public string FirstName { get; set; }
-        [Required]
         public string MidName { get; set; }
         [Required]
         public string LastName { get; set; }
