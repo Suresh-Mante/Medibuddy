@@ -22,8 +22,9 @@ namespace Medibuddy.DataAccess
             command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Insert into {nameof(OPDPatient)}({nameof(OPDPatient.PID)}, {nameof(OPDPatient.DocId)}, " +
-                                  $"{nameof(OPDPatient.VisitDate)}, {nameof(OPDPatient.OPDBillingID)})" +
-                                  $" Values({OPDPatient.PID}, {OPDPatient.DocId}, '{OPDPatient.VisitDate:MM-dd-yyyy}', {OPDPatient.OPDBillingID})";
+                                  $"{nameof(OPDPatient.VisitDate)}, {nameof(OPDPatient.OPDBillingID)}, {nameof(OPDPatient.Discharged)})" +
+                                  $" Values({OPDPatient.PID}, {OPDPatient.DocId}, '{OPDPatient.VisitDate:MM-dd-yyyy}', {OPDPatient.OPDBillingID}" +
+                                  $", {OPDPatient.Discharged})";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
@@ -52,7 +53,7 @@ namespace Medibuddy.DataAccess
             command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(OPDPatient.ID)}, {nameof(OPDPatient.PID)}, {nameof(OPDPatient.DocId)}, " +
-                                  $"{nameof(OPDPatient.VisitDate)}, {nameof(OPDPatient.OPDBillingID)}" +
+                                  $"{nameof(OPDPatient.VisitDate)}, {nameof(OPDPatient.OPDBillingID)}, {nameof(OPDPatient.Discharged)}" +
                                   $" from {nameof(OPDPatient)} where {nameof(OPDPatient.ID)} = {id}";
 
             SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -64,7 +65,8 @@ namespace Medibuddy.DataAccess
                     PID = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.PID))),
                     DocId = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.DocId))),
                     VisitDate = Convert.ToDateTime(reader.GetValue(nameof(OPDPatient.VisitDate))),
-                    OPDBillingID = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.OPDBillingID)))
+                    OPDBillingID = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.OPDBillingID))),
+                    Discharged = Convert.ToBoolean(reader.GetValue(nameof(OPDPatient.Discharged)))
                 };
             }
             reader.Close();
@@ -82,7 +84,7 @@ namespace Medibuddy.DataAccess
             command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = $"Select {nameof(OPDPatient.ID)}, {nameof(OPDPatient.PID)}, {nameof(OPDPatient.DocId)}, " +
-                                  $"{nameof(OPDPatient.VisitDate)}, {nameof(OPDPatient.OPDBillingID)}" +
+                                  $"{nameof(OPDPatient.VisitDate)}, {nameof(OPDPatient.OPDBillingID)}, {nameof(OPDPatient.Discharged)}" +
                                   $" from {nameof(OPDPatient)}";
 
             SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -94,7 +96,8 @@ namespace Medibuddy.DataAccess
                     PID = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.PID))),
                     DocId = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.DocId))),
                     VisitDate = Convert.ToDateTime(reader.GetValue(nameof(OPDPatient.VisitDate))),
-                    OPDBillingID = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.OPDBillingID)))
+                    OPDBillingID = Convert.ToInt32(reader.GetValue(nameof(OPDPatient.OPDBillingID))),
+                    Discharged = Convert.ToBoolean(reader.GetValue(nameof(OPDPatient.Discharged)))
                 });
             }
 
@@ -115,7 +118,8 @@ namespace Medibuddy.DataAccess
                 $"Set {nameof(OPDPatient.PID)} = {OPDPatient.PID}, " +
                 $"{nameof(OPDPatient.DocId)} = {OPDPatient.DocId}, " +
                 $"{nameof(OPDPatient.VisitDate)} = '{OPDPatient.VisitDate:MM-dd-yyyy}', " +
-                $"{nameof(OPDPatient.OPDBillingID)} = {OPDPatient.OPDBillingID} " +
+                $"{nameof(OPDPatient.OPDBillingID)} = {OPDPatient.OPDBillingID} ," +
+                $"{nameof(OPDPatient.Discharged)} = {OPDPatient.Discharged} " +
                 $"Where {nameof(OPDPatient.ID)} = {id}";
 
             await command.ExecuteNonQueryAsync();

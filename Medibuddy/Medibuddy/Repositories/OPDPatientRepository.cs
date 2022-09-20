@@ -67,6 +67,38 @@ namespace Medibuddy.Repositories
             return response;
         }
 
+        public async Task<Response<OPDPatient>> Discharge(int id)
+        {
+            Response<OPDPatient> response = new Response<OPDPatient>();
+
+            try
+            {
+                OPDPatient? existingOPDPatient = await _OPDPatientDataAccess.Get(id);
+                if (existingOPDPatient != null)
+                {
+                    existingOPDPatient.Discharged = true;
+                    await _OPDPatientDataAccess.Update(id, existingOPDPatient);
+                    response.StatusCode = 200;
+                    response.StatusMessage = HttpMessages.Deleted;
+                    response.Record = existingOPDPatient;
+                }
+                else
+                {
+                    response.StatusCode = 404;
+                    response.StatusMessage = HttpMessages.NotFound;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Write logic to log this exceptions somewhere//
+
+                response.StatusCode = 500;
+                response.StatusMessage = HttpMessages.InternalServerError;
+            }
+
+            return response;
+        }
+
         public async Task<Response<OPDPatient>> Get(int id)
         {
             Response<OPDPatient> response = new Response<OPDPatient>();
@@ -74,7 +106,7 @@ namespace Medibuddy.Repositories
             try
             {
                 OPDPatient? OPDPatient = await _OPDPatientDataAccess.Get(id);
-                if(OPDPatient != null)
+                if (OPDPatient != null)
                 {
                     response.StatusCode = 200;
                     response.StatusMessage = HttpMessages.Ok;
@@ -126,7 +158,7 @@ namespace Medibuddy.Repositories
             try
             {
                 OPDPatient? existingOPDPatient = await _OPDPatientDataAccess.Get(id);
-                if(existingOPDPatient != null)
+                if (existingOPDPatient != null)
                 {
                     OPDPatient? updatedOPDPatient = await _OPDPatientDataAccess.Update(id, OPDPatient);
                     response.StatusCode = 204;

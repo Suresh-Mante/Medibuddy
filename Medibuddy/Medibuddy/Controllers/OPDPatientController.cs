@@ -30,7 +30,8 @@ namespace Medibuddy.Controllers
                 PID = OPDPatient.PID,
                 DocId = OPDPatient.DocId,
                 VisitDate = OPDPatient.VisitDate,
-                OPDBillingID = OPDPatient.OPDBillingID
+                OPDBillingID = OPDPatient.OPDBillingID,
+                Discharged = OPDPatient.Discharged
             };
             return await _OPDPatientRepository.Create(newOPDPatient);
         }
@@ -78,7 +79,8 @@ namespace Medibuddy.Controllers
                 PID = OPDPatient.PID,
                 DocId = OPDPatient.DocId,
                 VisitDate = OPDPatient.VisitDate,
-                OPDBillingID = OPDPatient.OPDBillingID
+                OPDBillingID = OPDPatient.OPDBillingID,
+                Discharged = OPDPatient.Discharged
             });
         }
 
@@ -94,6 +96,12 @@ namespace Medibuddy.Controllers
         public async Task<Response<OPDPatient>> Delete(int id)
         {
             return await _OPDPatientRepository.Delete(id);
+        }
+
+        [HttpPost("Discharge/{id}")]
+        public async Task<Response<OPDPatient>> Discharge(int id)
+        {
+            return await _OPDPatientRepository.Discharge(id);
         }
     }
 }
