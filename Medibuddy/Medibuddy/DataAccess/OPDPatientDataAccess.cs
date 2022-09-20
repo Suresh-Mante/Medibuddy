@@ -24,7 +24,7 @@ namespace Medibuddy.DataAccess
             command.CommandText = $"Insert into {nameof(OPDPatient)}({nameof(OPDPatient.PID)}, {nameof(OPDPatient.DocId)}, " +
                                   $"{nameof(OPDPatient.VisitDate)}, {nameof(OPDPatient.OPDBillingID)}, {nameof(OPDPatient.Discharged)})" +
                                   $" Values({OPDPatient.PID}, {OPDPatient.DocId}, '{OPDPatient.VisitDate:MM-dd-yyyy}', {OPDPatient.OPDBillingID}" +
-                                  $", {OPDPatient.Discharged})";
+                                  $", '{OPDPatient.Discharged}')";
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
@@ -119,7 +119,7 @@ namespace Medibuddy.DataAccess
                 $"{nameof(OPDPatient.DocId)} = {OPDPatient.DocId}, " +
                 $"{nameof(OPDPatient.VisitDate)} = '{OPDPatient.VisitDate:MM-dd-yyyy}', " +
                 $"{nameof(OPDPatient.OPDBillingID)} = {OPDPatient.OPDBillingID} ," +
-                $"{nameof(OPDPatient.Discharged)} = {OPDPatient.Discharged} " +
+                $"{nameof(OPDPatient.Discharged)} = '{OPDPatient.Discharged}' " +
                 $"Where {nameof(OPDPatient.ID)} = {id}";
 
             await command.ExecuteNonQueryAsync();
