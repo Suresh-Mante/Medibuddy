@@ -34,7 +34,9 @@
 - Ravi
     - IPDTest
     - IPDMedicine
--Ajay and Soudip
+    
+- Ajay and Soudip
     - IPDPatientID
--Suresh
+    
+- Suresh
     - MedibuddyUI searching and navigation edit
