@@ -28,3 +28,13 @@
     - IPDBilling
     - IPDTest
     - IPDMedicine
+
+
+# 21/09/2022
+- Ravi
+    - IPDTest
+    - IPDMedicine
+-Ajay and Soudip
+    - IPDPatientID
+-Suresh
+    - MedibuddyUI searching and navigation edit
