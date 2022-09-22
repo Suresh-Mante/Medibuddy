@@ -1,4 +1,5 @@
-﻿using Medibuddy.Models;
+﻿using Medibuddy.DataAccess;
+using Medibuddy.Models;
 using Medibuddy.Utils;
 using Medibuddy.DataAccess;
 
