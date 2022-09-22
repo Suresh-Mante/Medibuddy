@@ -379,3 +379,4 @@ src/SpaFinder.SpaBooker/Presentation/SpaFinder.SpaBooker.WebApps.Admin/Resources
 src/SpaFinder.SpaBooker/Presentation/SpaFinder.SpaBooker.WebApps.Admin/ResourcesLocal/imports/f323cbc0-094b-45d3-a2d5-44b3f8f99ad5.csv
 
 !src/SpaFinder.SpaBooker/Presentation/SpaFinder.SpaBooker.WebApps.Admin/assets/packages/*
+*.json
