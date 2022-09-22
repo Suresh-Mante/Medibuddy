@@ -1,6 +1,7 @@
 ﻿using Medibuddy.DataAccess;
 using Medibuddy.Models;
 using Medibuddy.Utils;
+using Medibuddy.DataAccess;
 
 namespace Medibuddy.Repositories
 {
