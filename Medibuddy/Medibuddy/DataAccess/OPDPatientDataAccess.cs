@@ -27,8 +27,8 @@ namespace Medibuddy.DataAccess
                                   $", '{OPDPatient.Discharged}')";
 
             await command.ExecuteNonQueryAsync();
-            connection.Close();
 
+            connection.Close();
             return OPDPatient;
         }
 
