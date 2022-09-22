@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Medibuddy.DataAccess
 {
-    public class IPDPatientDataAccess : IIPDPatientDataAccesslayer
+    public class IPDPatientDataAccess : IIPDPatientDataAccess
     {
         private readonly IConfiguration _configuration;
         private SqlConnection connection;

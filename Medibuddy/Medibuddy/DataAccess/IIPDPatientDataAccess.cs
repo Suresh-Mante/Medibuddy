@@ -3,7 +3,7 @@
 
 namespace Medibuddy.DataAccess
 {
-    public interface IIPDPatientDataAccesslayer
+    public interface IIPDPatientDataAccess
     {
         public Task<IPDPatient> Create(IPDPatient ward);
         public Task<IPDPatient?> Get(int id);
