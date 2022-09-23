@@ -28,7 +28,7 @@ namespace Medibuddy.Controllers
             return await _ipdmedicineRepository.Create(newIPDMedicine);
         }
 
-        [HttpGet("{OPDBillingID}")]
+        [HttpGet("{IPDPatientId}")]
         public async Task<Response<IPDMedicine>> Get(int IPDPatientID)
         {
             return await _ipdmedicineRepository.Get(IPDPatientID);
