@@ -57,6 +57,10 @@ builder.Services.AddScoped<IOPDPatientDataAccess, OPDPatientDataAccess>();
 builder.Services.AddScoped<IIPDMedicineRepository, IPDMedicineRepository>();
 builder.Services.AddScoped<IIPDMedicineDataAccess, IPDMedicineDataAccess>();
 
+//For IPDTest API
+builder.Services.AddScoped<IIPDTestRepository, IPDTestRepository>();
+builder.Services.AddScoped<IIPDTestDataAccess, IPDTestDataAccess>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
