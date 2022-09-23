@@ -29,9 +29,9 @@ namespace Medibuddy.Controllers
         }
 
         [HttpGet("{IPDPatientId}")]
-        public async Task<Response<IPDMedicine>> Get(int IPDPatientID)
+        public async Task<Response<IPDMedicine>> Get(int IPDPatientId)
         {
-            return await _ipdmedicineRepository.Get(IPDPatientID);
+            return await _ipdmedicineRepository.Get(IPDPatientId);
         }
 
         [HttpGet]
