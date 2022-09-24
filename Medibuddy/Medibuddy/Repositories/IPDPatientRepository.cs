@@ -77,7 +77,11 @@ namespace Medibuddy.Repositories
                 IPDPatient? existingIPDPatient = await _IPDPatientDataAccess.Get(id);
                 if (existingIPDPatient != null)
                 {
+                    //make Discharge to true
                     existingIPDPatient.Discharged = true;
+                    //set ExitDate to today
+                    existingIPDPatient.ExitDate = DateTime.Now;
+
                     await _IPDPatientDataAccess.Update(id, existingIPDPatient);
                     response.StatusCode = 200;
                     response.StatusMessage = HttpMessages.Deleted;
