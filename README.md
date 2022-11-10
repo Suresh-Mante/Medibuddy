@@ -1,5 +1,7 @@
 # Medibuddy
-A training mini project
+This project is aimed at achieving the backend portion of an extended **Hospital Management System**. This uses ASP.NET for creating APIs (C# as programming language) and SQL Server for creating and maintaining databases.
+
+You can find the frontend portion of this project [here](https://github.com/Suresh-Mante/MedibuddyUI)
 
 Here are some screenshots of the running API using Swagger
 
