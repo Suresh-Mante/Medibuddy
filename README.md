@@ -1,5 +1,5 @@
 # Medibuddy
-This project is aimed at achieving the backend portion of an extended **Hospital Management System**. This uses ASP.NET for creating APIs (C# as programming language) and SQL Server for creating and maintaining databases.
+This project is aimed at achieving the frontend portion of an extended **Hospital Management System**. This uses React JS, HTML, CSS, Javascript and Bootstrap for interactive UI (frontend), ASP.NET for creating APIs (backend) (C# as programming language) and SQL Server for creating and maintaining databases.
 
 You can find the frontend portion of this project [here](https://github.com/Suresh-Mante/MedibuddyUI)
 
